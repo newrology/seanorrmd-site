@@ -47,6 +47,7 @@ export const personJsonLd = {
   honorificSuffix: "M.D.",
   alternateName: ["Sean C. Orr, M.D.", "Dr. Sean Orr", "Sean Orr MD"],
   url: SITE_URL,
+  image: `${SITE_URL}/sean-orr-md-headshot.jpg`,
   jobTitle: "Co-founder and Chief Medical Officer, The Neurogenesis Project",
   description:
     "Fellowship-trained neurologist and physician entrepreneur. Co-founder and Chief Medical Officer of The Neurogenesis Project, founder of Action Potential Supplements, CEO of Doctor Media Group, and publisher of Florida Doctor Magazine. Coined 'The Neuroeconomy.'",

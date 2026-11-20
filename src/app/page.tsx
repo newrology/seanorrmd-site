@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -39,12 +40,15 @@ export default function Home() {
       <section className="px-6 pb-16 pt-20 md:pb-24 md:pt-28">
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start md:gap-16">
-            {/* Headshot placeholder */}
-            <div className="flex h-40 w-40 shrink-0 items-center justify-center rounded-full bg-navy/10 md:h-52 md:w-52">
-              <span className="text-4xl font-bold text-navy/40 md:text-5xl">
-                SO
-              </span>
-            </div>
+            <Image
+              src="/headshot.jpg"
+              alt="Sean C. Orr, M.D."
+              width={800}
+              height={800}
+              fetchPriority="high"
+              sizes="(min-width: 768px) 208px, 160px"
+              className="h-40 w-40 shrink-0 rounded-full object-cover ring-1 ring-navy/10 md:h-52 md:w-52"
+            />
 
             <div className="text-center md:text-left">
               <h1 className="text-4xl font-bold tracking-tight text-navy md:text-5xl">

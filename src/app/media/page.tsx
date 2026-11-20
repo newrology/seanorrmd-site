@@ -39,6 +39,14 @@ export default function MediaPage() {
           >
             contact form
           </Link>
+          .{" "}
+          <a
+            href="/sean-orr-md-headshot.jpg"
+            download
+            className="font-medium text-gold hover:underline"
+          >
+            Download a high-resolution headshot
+          </a>
           .
         </p>
 
