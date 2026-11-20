@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Media & Speaking",
   description:
     "Press mentions, podcast appearances, conference talks, and The Braincast video series from Dr. Sean C. Orr.",
+  alternates: { canonical: "/media" },
 };
 
 const placeholderSections = [

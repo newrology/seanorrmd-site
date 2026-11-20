@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: "Ventures",
   description:
     "The interconnected portfolio of physician-led ventures in brain health, supplements, physician advocacy, and medical media.",
+  alternates: { canonical: "/ventures" },
 };
 
 const ventures = [
@@ -25,7 +26,7 @@ const ventures = [
   },
   {
     name: "Florida Doctor Magazine",
-    role: "Founder & Editor-in-Chief",
+    role: "Publisher",
     description:
       "Physician advocacy publication reaching 54,000+ newsletter subscribers. Covering policy, practice, and professional life through a physician-first lens. The flagship property of Doctor Media Group.",
     href: "https://floridadoctormagazine.com",
@@ -65,9 +66,9 @@ export default function VenturesPage() {
           Ventures
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-navy/70">
-          Six interconnected ventures. Content, branding, and patient funnels
-          flow between them — the ecosystem compounds when properties reinforce
-          each other.
+          Six physician-led ventures across patient care, brain nutrition,
+          physician media, and physician advocacy. Each one supports the
+          others.
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">

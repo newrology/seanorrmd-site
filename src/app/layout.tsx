@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { personJsonLd, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -9,11 +10,10 @@ export const metadata: Metadata = {
   },
   description:
     "Fellowship-trained neurologist, physician entrepreneur, and media operator building the infrastructure for physician-led brain health innovation.",
-  metadataBase: new URL("https://seanorrmd.com"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://seanorrmd.com",
     siteName: "Sean C. Orr, M.D.",
     title: "Sean C. Orr, M.D. — Neurologist & Physician Entrepreneur",
     description:
@@ -29,65 +29,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  alternates: {
-    canonical: "https://seanorrmd.com",
-  },
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Sean C. Orr, M.D.",
-  givenName: "Sean",
-  familyName: "Orr",
-  honorificSuffix: "M.D.",
-  jobTitle: "Neurologist, Physician Entrepreneur",
-  description:
-    "Fellowship-trained neurologist, physician entrepreneur, and media operator. Coined 'The Neuroeconomy' — the economic reality where income is tied to frontal lobe function.",
-  url: "https://seanorrmd.com",
-  sameAs: [
-    "https://neurogenesisproject.com",
-    "https://myactionpotential.com",
-    "https://floridadoctormagazine.com",
-    "https://www.youtube.com/@TheNeurogenesisProject",
-    "https://orcid.org/XXXX-XXXX-XXXX-XXXX",
-    "https://scholar.google.com/citations?user=PLACEHOLDER",
-    "https://www.doximity.com/pub/sean-orr-md",
-    "https://www.linkedin.com/in/seanorrmd/",
-  ],
-  worksFor: [
-    {
-      "@type": "Organization",
-      name: "The Neurogenesis Project",
-      url: "https://neurogenesisproject.com",
-    },
-    {
-      "@type": "Organization",
-      name: "Action Potential Supplements",
-      url: "https://myactionpotential.com",
-    },
-    {
-      "@type": "Organization",
-      name: "Florida Doctor Magazine",
-      url: "https://floridadoctormagazine.com",
-    },
-    {
-      "@type": "Organization",
-      name: "Doctor Media Group",
-    },
-  ],
-  alumniOf: {
-    "@type": "EducationalOrganization",
-    name: "University of Alabama at Birmingham",
-  },
-  knowsAbout: [
-    "Neurology",
-    "Interventional Neurology",
-    "Neurocritical Care",
-    "Brain Health",
-    "Cognitive Optimization",
-    "Physician Advocacy",
-  ],
+  // Each page sets its own canonical URL. A canonical here would be inherited
+  // by every page and tell search engines that all pages are the home page.
 };
 
 const navLinks = [
@@ -150,14 +93,14 @@ function Footer() {
               Neurologist &middot; Physician Entrepreneur &middot; Media Operator
             </p>
           </div>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <a
               href="https://neurogenesisproject.com"
               target="_blank"
               rel="noopener noreferrer me"
               className="text-xs text-cream/50 transition-colors hover:text-gold"
             >
-              NGP
+              The Neurogenesis Project
             </a>
             <a
               href="https://myactionpotential.com"
@@ -165,7 +108,7 @@ function Footer() {
               rel="noopener noreferrer me"
               className="text-xs text-cream/50 transition-colors hover:text-gold"
             >
-              APS
+              Action Potential
             </a>
             <a
               href="https://floridadoctormagazine.com"
@@ -173,7 +116,7 @@ function Footer() {
               rel="noopener noreferrer me"
               className="text-xs text-cream/50 transition-colors hover:text-gold"
             >
-              FDM
+              Florida Doctor Magazine
             </a>
             <a
               href="https://www.youtube.com/@TheNeurogenesisProject"
@@ -194,7 +137,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-cream/10 pt-6 text-center text-xs text-cream/40">
-          &copy; 2026 Sean C. Orr, M.D. All rights reserved.
+          &copy; 2026 Sean C. Orr, M.D. Professional information only, not medical advice.
         </div>
       </div>
     </footer>
@@ -211,7 +154,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
         />
       </head>
       <body className="flex min-h-full flex-col bg-cream text-navy">

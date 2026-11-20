@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PROFILES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Fellowship-trained neurologist, among the first generation of interventional neurologists. Career spanning stroke center leadership, biotech innovation, and physician entrepreneurship.",
+  alternates: { canonical: "/about" },
 };
 
-const externalLinks = [
-  { label: "ORCID", href: "#" },
-  { label: "Google Scholar", href: "#" },
-  { label: "Doximity", href: "https://www.doximity.com/pub/sean-orr-md" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/seanorrmd/" },
-];
+const externalLinks = PROFILES.map((p) => ({ label: p.label, href: p.url }));
 
 export default function AboutPage() {
   return (
@@ -29,21 +26,23 @@ export default function AboutPage() {
           </h2>
           <div className="mt-4 space-y-4 text-base leading-relaxed text-navy/80">
             <p>
-              I&apos;m a fellowship-trained neurologist — one of the first
-              generation of Interventional Neurologists in the United States.
-              My fellowship in Vascular, Critical Care, and Interventional
-              Neurology at the University of Alabama at Birmingham, completed
-              in 2001 under Dr. Camilo Gomez, trained me to perform
-              percutaneous endovascular interventions and to administer IV
-              tissue plasminogen activator (tPA) for acute stroke at a time
-              when most of these techniques were brand new.
+              I&apos;m a fellowship-trained neurologist, part of the first
+              generation of interventional neurologists in the United States.
+              I completed a Fellowship in Vascular and Critical Care Neurology
+              at the University of Alabama at Birmingham in 2001 under Dr.
+              Camilo Gomez, with training in endovascular intervention:
+              percutaneous endovascular procedures and IV tissue plasminogen
+              activator (tPA) for acute stroke, at a time when most of these
+              techniques were brand new.
             </p>
             <p>
-              B.S. (1991), M.D. (1995), Neurology Residency (completed 1999,
-              Chief Resident in PGY-4 year). I&apos;m a charter member of the
-              Society for Vascular and Interventional Neurology (SVIN), served
-              on the board of the Brain Injury Association of Florida, and was
-              the team concussion physician for the Jacksonville Jaguars.
+              B.S. (1991). M.D. (1995), University of South Florida College of
+              Medicine, followed by an internal medicine internship (1996) and
+              neurology residency (1999, Chief Resident in the PGY-4 year) at
+              USF. I&apos;m a charter member of the Society of Vascular and
+              Interventional Neurology (SVIN), served on the board of the Brain
+              Injury Association of Florida, and was formerly the team
+              concussion physician for the Jacksonville Jaguars.
             </p>
             <p>
               I&apos;m a trained neuroimager — qualified to read and interpret

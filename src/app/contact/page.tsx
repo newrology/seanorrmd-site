@@ -1,45 +1,52 @@
 "use client";
 
 import { useState } from "react";
+import { REASONS } from "@/lib/contact";
+import { CONTACT_EMAIL, PATIENT_URL } from "@/lib/site";
+
+type State = "idle" | "sending" | "sent" | "error";
+
+const field =
+  "mt-2 block w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0";
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [state, setState] = useState<State>("idle");
+  const [error, setError] = useState("");
+  const [name, setName] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // No backend yet — just show confirmation
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
+    setState("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setState("error");
+        setError(body.error ?? `The message could not be sent. Please email ${CONTACT_EMAIL} directly.`);
+        return;
+      }
+      setName(String(data.name ?? ""));
+      setState("sent");
+    } catch {
+      setState("error");
+      setError(`The message could not be sent. Please email ${CONTACT_EMAIL} directly.`);
+    }
   }
 
-  if (submitted) {
+  if (state === "sent") {
     return (
       <div className="px-6 py-16 md:py-24">
-        <div className="mx-auto max-w-xl text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gold/10">
-            <svg
-              className="h-8 w-8 text-gold"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.5 12.75l6 6 9-13.5"
-              />
-            </svg>
-          </div>
-          <h1 className="mt-6 text-2xl font-bold text-navy">
-            Thank you, {formData.name}.
-          </h1>
+        <div className="mx-auto max-w-xl text-center" role="status">
+          <h1 className="text-2xl font-bold text-navy">Thank you, {name}.</h1>
           <p className="mt-3 text-base text-gray">
-            Your message has been received. I&apos;ll be in touch.
+            Your message was sent. You&apos;ll get a reply at the email address you entered.
           </p>
         </div>
       </div>
@@ -49,93 +56,67 @@ export default function ContactPage() {
   return (
     <div className="px-6 py-16 md:py-24">
       <div className="mx-auto max-w-xl">
-        <h1 className="text-3xl font-bold tracking-tight text-navy md:text-4xl">
-          Contact
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tight text-navy md:text-4xl">Contact</h1>
         <p className="mt-4 text-base leading-relaxed text-navy/70">
-          Professional inquiries — partnerships, speaking, media, and
-          collaboration. For patient care, please visit{" "}
-          <a
-            href="https://neurogenesisproject.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-gold hover:underline"
-          >
-            neurogenesisproject.com
+          Professional inquiries: media, speaking, partnerships, and collaboration with other
+          physicians. You can also email{" "}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-gold hover:underline">
+            {CONTACT_EMAIL}
           </a>
           .
+        </p>
+        <p className="mt-4 border-l-2 border-gold/40 pl-4 text-sm leading-relaxed text-navy/70">
+          This form is not for patient care. Patients and families can reach The Neurogenesis
+          Project at{" "}
+          <a href={PATIENT_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-gold hover:underline">
+            neurogenesisproject.com
+          </a>
+          . Please don&apos;t include medical information here.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-6">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-navy"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="mt-2 block w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0"
-              placeholder="Your name"
-            />
+            <label htmlFor="name" className="block text-sm font-medium text-navy">Name</label>
+            <input type="text" id="name" name="name" required maxLength={120} autoComplete="name" className={field} />
           </div>
-
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-navy"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              className="mt-2 block w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0"
-              placeholder="you@example.com"
-            />
+            <label htmlFor="email" className="block text-sm font-medium text-navy">Email</label>
+            <input type="email" id="email" name="email" required maxLength={200} autoComplete="email" className={field} />
           </div>
-
           <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-navy"
-            >
-              Message
+            <label htmlFor="organization" className="block text-sm font-medium text-navy">
+              Organization <span className="font-normal text-gray">(optional)</span>
             </label>
-            <textarea
-              id="message"
-              name="message"
-              required
-              rows={5}
-              value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
-              className="mt-2 block w-full resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0"
-              placeholder="How can I help?"
-            />
+            <input type="text" id="organization" name="organization" maxLength={160} autoComplete="organization" className={field} />
           </div>
-
+          <div>
+            <label htmlFor="reason" className="block text-sm font-medium text-navy">What is this about?</label>
+            <select id="reason" name="reason" required defaultValue="" className={field}>
+              <option value="" disabled>Choose one</option>
+              {REASONS.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium text-navy">Message</label>
+            <textarea id="message" name="message" required minLength={10} maxLength={5000} rows={5} className={`${field} resize-y`} />
+          </div>
+          {/* Honeypot: hidden from people, filled in by bots. */}
+          <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
+          </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-navy-light"
+            disabled={state === "sending"}
+            className="w-full rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-navy-light disabled:cursor-progress disabled:opacity-60"
           >
-            Send Message
+            {state === "sending" ? "Sending…" : "Send message"}
           </button>
+          <p role="status" aria-live="polite" className="text-sm text-red-700">
+            {state === "error" ? error : ""}
+          </p>
         </form>
       </div>
     </div>
