@@ -99,7 +99,7 @@ export default function VenturesPage() {
                   rel="noopener noreferrer"
                   className="mt-6 inline-block text-xs font-semibold uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy"
                 >
-                  Visit {v.name.split(" ")[0]} &rarr;
+                  Visit website <span aria-hidden="true">&rarr;</span>
                 </a>
               )}
             </div>

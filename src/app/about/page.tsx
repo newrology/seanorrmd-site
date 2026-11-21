@@ -26,7 +26,7 @@ export default function AboutPage() {
         <section>
           <Eyebrow>Background</Eyebrow>
           <h2 className="mt-4 font-serif text-3xl font-medium text-navy">Training &amp; Credentials</h2>
-          <div className="mt-6 space-y-5 text-base leading-relaxed text-navy/80 md:text-[1.0625rem] [&>p:first-child]:first-letter:float-left [&>p:first-child]:first-letter:mr-2 [&>p:first-child]:first-letter:font-serif [&>p:first-child]:first-letter:text-6xl [&>p:first-child]:first-letter:leading-[0.85] [&>p:first-child]:first-letter:text-gold-deep">
+          <div className="mt-6 space-y-5 text-base leading-relaxed text-navy/80 md:text-[1.0625rem]">
             <p>
               I&apos;m a fellowship-trained neurologist, part of the first
               generation of interventional neurologists in the United States.
@@ -124,7 +124,7 @@ export default function AboutPage() {
                 key={item.year}
                 className="flex gap-5 border-l-2 border-gold/40 pl-6"
               >
-                <span className="w-14 shrink-0 font-serif text-xl italic text-gold-deep">
+                <span className="w-16 shrink-0 whitespace-nowrap font-serif text-xl italic text-gold-deep">
                   {item.year}
                 </span>
                 <div>

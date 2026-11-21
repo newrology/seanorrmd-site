@@ -99,7 +99,7 @@ function Footer() {
     <footer className="border-t-2 border-gold/60 bg-navy text-cream/70">
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
-          <div className="text-center md:text-left">
+          <div className="text-center md:shrink-0 md:text-left">
             <p className="font-serif text-2xl text-cream">
               Sean C. Orr, M.D.
             </p>
@@ -107,7 +107,7 @@ function Footer() {
               Neurologist &middot; Physician Entrepreneur &middot; Media Operator
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
             <a
               href="https://neurogenesisproject.com"
               target="_blank"
