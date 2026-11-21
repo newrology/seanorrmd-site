@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { personJsonLd, SITE_URL } from "@/lib/site";
 
@@ -33,6 +34,19 @@ export const metadata: Metadata = {
   // by every page and tell search engines that all pages are the home page.
 };
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+});
+
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
@@ -47,7 +61,7 @@ function Header() {
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-navy transition-colors hover:text-gold"
+          className="font-serif text-xl font-medium tracking-tight text-navy transition-colors hover:text-gold-deep"
         >
           Sean C. Orr, M.D.
         </Link>
@@ -56,7 +70,7 @@ function Header() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm font-medium text-navy/70 transition-colors hover:text-gold"
+                className="text-xs font-semibold uppercase tracking-[0.15em] text-navy/70 transition-colors hover:text-gold-deep"
               >
                 {link.label}
               </Link>
@@ -68,7 +82,7 @@ function Header() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-xs font-medium text-navy/70 transition-colors hover:text-gold"
+                className="text-xs font-medium text-navy/75 transition-colors hover:text-gold-deep"
               >
                 {link.label}
               </Link>
@@ -82,14 +96,14 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-navy/10 bg-navy text-cream/70">
+    <footer className="border-t-2 border-gold/60 bg-navy text-cream/70">
       <div className="mx-auto max-w-5xl px-6 py-12">
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           <div className="text-center md:text-left">
-            <p className="text-sm font-semibold text-cream">
+            <p className="font-serif text-2xl text-cream">
               Sean C. Orr, M.D.
             </p>
-            <p className="mt-1 text-xs text-cream/50">
+            <p className="mt-1 text-xs uppercase tracking-[0.15em] text-gold/80">
               Neurologist &middot; Physician Entrepreneur &middot; Media Operator
             </p>
           </div>
@@ -98,7 +112,7 @@ function Footer() {
               href="https://neurogenesisproject.com"
               target="_blank"
               rel="noopener noreferrer me"
-              className="text-xs text-cream/50 transition-colors hover:text-gold"
+              className="text-xs text-cream/70 transition-colors hover:text-gold"
             >
               The Neurogenesis Project
             </a>
@@ -106,7 +120,7 @@ function Footer() {
               href="https://myactionpotential.com"
               target="_blank"
               rel="noopener noreferrer me"
-              className="text-xs text-cream/50 transition-colors hover:text-gold"
+              className="text-xs text-cream/70 transition-colors hover:text-gold"
             >
               Action Potential
             </a>
@@ -114,7 +128,7 @@ function Footer() {
               href="https://floridadoctormagazine.com"
               target="_blank"
               rel="noopener noreferrer me"
-              className="text-xs text-cream/50 transition-colors hover:text-gold"
+              className="text-xs text-cream/70 transition-colors hover:text-gold"
             >
               Florida Doctor Magazine
             </a>
@@ -122,7 +136,7 @@ function Footer() {
               href="https://www.youtube.com/@TheNeurogenesisProject"
               target="_blank"
               rel="noopener noreferrer me"
-              className="text-xs text-cream/50 transition-colors hover:text-gold"
+              className="text-xs text-cream/70 transition-colors hover:text-gold"
             >
               YouTube
             </a>
@@ -130,13 +144,13 @@ function Footer() {
               href="https://www.linkedin.com/in/seanorrmd/"
               target="_blank"
               rel="noopener noreferrer me"
-              className="text-xs text-cream/50 transition-colors hover:text-gold"
+              className="text-xs text-cream/70 transition-colors hover:text-gold"
             >
               LinkedIn
             </a>
           </div>
         </div>
-        <div className="mt-8 border-t border-cream/10 pt-6 text-center text-xs text-cream/40">
+        <div className="mt-8 border-t border-cream/10 pt-6 text-center text-xs text-cream/55">
           &copy; 2026 Sean C. Orr, M.D. Professional information only, not medical advice.
         </div>
       </div>
@@ -150,7 +164,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`${inter.variable} ${newsreader.variable} h-full antialiased`}>
       <head>
         <script
           type="application/ld+json"

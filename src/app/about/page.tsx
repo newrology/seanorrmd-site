@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { PROFILES } from "@/lib/site";
+import { Eyebrow, PageHeader, PullQuote } from "@/components/editorial";
+import { FELLOWSHIP, PROFILES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -13,18 +15,18 @@ const externalLinks = PROFILES.map((p) => ({ label: p.label, href: p.url }));
 
 export default function AboutPage() {
   return (
-    <div className="px-6 py-16 md:py-24">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-bold tracking-tight text-navy md:text-4xl">
-          About
-        </h1>
+    <div>
+      <PageHeader eyebrow="Biography" title="About">
+        <p>{FELLOWSHIP}.</p>
+      </PageHeader>
 
+      <div className="px-6 py-16 md:py-20">
+      <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-[1fr_17rem] md:gap-16">
         {/* Training */}
-        <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-gold">
-            Training &amp; Credentials
-          </h2>
-          <div className="mt-4 space-y-4 text-base leading-relaxed text-navy/80">
+        <section>
+          <Eyebrow>Background</Eyebrow>
+          <h2 className="mt-4 font-serif text-3xl font-medium text-navy">Training &amp; Credentials</h2>
+          <div className="mt-6 space-y-5 text-base leading-relaxed text-navy/80 md:text-[1.0625rem] [&>p:first-child]:first-letter:float-left [&>p:first-child]:first-letter:mr-2 [&>p:first-child]:first-letter:font-serif [&>p:first-child]:first-letter:text-6xl [&>p:first-child]:first-letter:leading-[0.85] [&>p:first-child]:first-letter:text-gold-deep">
             <p>
               I&apos;m a fellowship-trained neurologist, part of the first
               generation of interventional neurologists in the United States.
@@ -55,12 +57,45 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <aside className="md:pt-2">
+          <figure>
+            <Image
+              src="/headshot.jpg"
+              alt="Sean C. Orr, M.D."
+              width={800}
+              height={800}
+              sizes="(min-width: 768px) 272px, 100vw"
+              className="aspect-[4/5] w-full rounded-sm object-cover shadow-[0_20px_40px_-20px_rgba(26,26,46,0.5)]"
+            />
+            <figcaption className="mt-3 text-xs italic text-gray">
+              Sean C. Orr, M.D.
+            </figcaption>
+          </figure>
+          <dl className="mt-8 space-y-4 border-t border-navy/10 pt-6 text-sm">
+            <div>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">M.D.</dt>
+              <dd className="mt-1 text-navy/80">University of South Florida, 1995</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">Residency</dt>
+              <dd className="mt-1 text-navy/80">Neurology, USF, 1999 (Chief Resident)</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">Fellowship</dt>
+              <dd className="mt-1 text-navy/80">Vascular and Critical Care Neurology, UAB, 2001</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+      </div>
+
+      <div className="band-paper px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-3xl">
         {/* Career Arc */}
-        <section className="mt-12">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-gold">
-            Career
-          </h2>
-          <div className="mt-6 space-y-6">
+        <section>
+          <Eyebrow>Career</Eyebrow>
+          <h2 className="mt-4 font-serif text-3xl font-medium text-navy">From stroke center to founder</h2>
+          <div className="mt-8 space-y-8">
             {[
               {
                 year: "2004",
@@ -87,13 +122,13 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.year}
-                className="flex gap-4 border-l-2 border-gold/30 pl-6"
+                className="flex gap-5 border-l-2 border-gold/40 pl-6"
               >
-                <span className="shrink-0 text-sm font-semibold text-gold">
+                <span className="w-14 shrink-0 font-serif text-xl italic text-gold-deep">
                   {item.year}
                 </span>
                 <div>
-                  <p className="font-semibold text-navy">{item.title}</p>
+                  <p className="font-serif text-xl text-navy">{item.title}</p>
                   <p className="text-sm text-gray">{item.org}</p>
                   {item.note && (
                     <p className="mt-1 text-sm leading-relaxed text-navy/60">
@@ -106,12 +141,23 @@ export default function AboutPage() {
           </div>
         </section>
 
+      </div>
+      </div>
+
+      <section className="band-dark px-6 py-16 md:py-24">
+        <PullQuote tone="dark" cite="Sean C. Orr, M.D.">
+          Brain health is not optional maintenance. It&apos;s the foundation of
+          career, relationships, creative output, and legacy.
+        </PullQuote>
+      </section>
+
+      <div className="px-6 py-16 md:py-20">
+      <div className="mx-auto max-w-3xl">
         {/* The Neuroeconomy */}
-        <section className="mt-12">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-gold">
-            The Neuroeconomy
-          </h2>
-          <div className="mt-4 space-y-4 text-base leading-relaxed text-navy/80">
+        <section>
+          <Eyebrow>An idea</Eyebrow>
+          <h2 className="mt-4 font-serif text-3xl font-medium text-navy">The Neuroeconomy</h2>
+          <div className="mt-6 space-y-5 text-base leading-relaxed text-navy/80 md:text-[1.0625rem]">
             <p>
               I coined the term <em>The Neuroeconomy</em> to describe the new
               economic reality in which income is tied more than ever to frontal
@@ -125,7 +171,7 @@ export default function AboutPage() {
               through{" "}
               <Link
                 href="/ventures"
-                className="font-medium text-gold hover:underline"
+                className="font-medium text-gold-deep underline decoration-gold/50 underline-offset-4 hover:decoration-gold-deep"
               >
                 every venture I operate
               </Link>
@@ -136,23 +182,22 @@ export default function AboutPage() {
 
         {/* External Links */}
         <section className="mt-12">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-gold">
-            Find Me Elsewhere
-          </h2>
-          <div className="mt-4 flex flex-wrap gap-3">
+          <Eyebrow>Find Me Elsewhere</Eyebrow>
+          <div className="mt-6 flex flex-wrap gap-3">
             {externalLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer me"
-                className="rounded-full border border-navy/10 px-4 py-2 text-sm font-medium text-navy transition-all hover:border-gold/40 hover:text-gold"
+                className="rounded-full border border-navy/15 bg-white px-4 py-2 text-sm font-medium text-navy transition-all hover:border-gold hover:text-gold-deep"
               >
                 {link.label} &rarr;
               </a>
             ))}
           </div>
         </section>
+      </div>
       </div>
     </div>
   );

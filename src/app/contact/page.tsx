@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { REASONS } from "@/lib/contact";
 import { CONTACT_EMAIL, PATIENT_URL } from "@/lib/site";
+import { PageHeader } from "@/components/editorial";
 
 type State = "idle" | "sending" | "sent" | "error";
 
 const field =
-  "mt-2 block w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0";
+  "mt-2 block w-full rounded-lg border border-navy/15 bg-cream/60 px-4 py-3 text-sm text-navy placeholder-navy/30 transition-colors focus:border-gold focus:ring-0";
 
 export default function ContactPage() {
   const [state, setState] = useState<State>("idle");
@@ -44,7 +45,7 @@ export default function ContactPage() {
     return (
       <div className="px-6 py-16 md:py-24">
         <div className="mx-auto max-w-xl text-center" role="status">
-          <h1 className="text-2xl font-bold text-navy">Thank you, {name}.</h1>
+          <h1 className="font-serif text-4xl font-medium text-navy">Thank you, {name}.</h1>
           <p className="mt-3 text-base text-gray">
             Your message was sent. You&apos;ll get a reply at the email address you entered.
           </p>
@@ -54,27 +55,29 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="px-6 py-16 md:py-24">
-      <div className="mx-auto max-w-xl">
-        <h1 className="text-3xl font-bold tracking-tight text-navy md:text-4xl">Contact</h1>
-        <p className="mt-4 text-base leading-relaxed text-navy/70">
+    <div>
+      <PageHeader eyebrow="Correspondence" title="Contact">
+        <p>
           Professional inquiries: media, speaking, partnerships, and collaboration with other
           physicians. You can also email{" "}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-gold hover:underline">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium text-gold underline decoration-gold/40 underline-offset-4 hover:text-gold-light">
             {CONTACT_EMAIL}
           </a>
           .
         </p>
-        <p className="mt-4 border-l-2 border-gold/40 pl-4 text-sm leading-relaxed text-navy/70">
+      </PageHeader>
+    <div className="px-6 py-14 md:py-20">
+      <div className="mx-auto max-w-xl">
+        <p className="border-l-2 border-gold pl-4 text-sm leading-relaxed text-navy/75">
           This form is not for patient care. Patients and families can reach The Neurogenesis
           Project at{" "}
-          <a href={PATIENT_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-gold hover:underline">
+          <a href={PATIENT_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-gold-deep underline decoration-gold/50 underline-offset-4">
             neurogenesisproject.com
           </a>
           . Please don&apos;t include medical information here.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-10 space-y-6 rounded-xl border border-navy/10 bg-white p-6 shadow-[0_18px_40px_-28px_rgba(26,26,46,0.45)] md:p-8">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-navy">Name</label>
             <input type="text" id="name" name="name" required maxLength={120} autoComplete="name" className={field} />
@@ -110,7 +113,7 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={state === "sending"}
-            className="w-full rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-navy-light disabled:cursor-progress disabled:opacity-60"
+            className="w-full rounded-full bg-navy px-6 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-cream transition-colors hover:bg-navy-light disabled:cursor-progress disabled:opacity-60"
           >
             {state === "sending" ? "Sending…" : "Send message"}
           </button>
@@ -119,6 +122,7 @@ export default function ContactPage() {
           </p>
         </form>
       </div>
+    </div>
     </div>
   );
 }

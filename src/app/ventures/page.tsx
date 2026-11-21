@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader, PullQuote } from "@/components/editorial";
 
 export const metadata: Metadata = {
   title: "Ventures",
@@ -60,33 +61,35 @@ const ventures = [
 
 export default function VenturesPage() {
   return (
-    <div className="px-6 py-16 md:py-24">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold tracking-tight text-navy md:text-4xl">
-          Ventures
-        </h1>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-navy/70">
+    <div>
+      <PageHeader eyebrow="Portfolio" title="Ventures">
+        <p>
           Six physician-led ventures across patient care, brain nutrition,
           physician media, and physician advocacy. Each one supports the
           others.
         </p>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {ventures.map((v) => (
+      </PageHeader>
+    <div className="px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-5xl">
+        <div className="grid gap-6 md:grid-cols-2">
+          {ventures.map((v, i) => (
             <div
               key={v.name}
-              className="group relative rounded-lg border border-navy/10 bg-white p-8 transition-all hover:border-gold/40 hover:shadow-md"
+              className="group relative flex flex-col rounded-xl border border-navy/10 bg-white p-8 shadow-[0_1px_0_rgba(26,26,46,0.04)] transition-all hover:border-gold/50 hover:shadow-[0_18px_40px_-24px_rgba(26,26,46,0.45)]"
             >
+              <span aria-hidden="true" className="font-serif text-sm italic text-gold-deep">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               {v.status === "building" && (
-                <span className="absolute right-4 top-4 rounded-full bg-gold-dim px-3 py-1 text-xs font-medium text-gold">
+                <span className="absolute right-5 top-5 rounded-full border border-gold/40 bg-gold-dim px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-gold-deep">
                   Building
                 </span>
               )}
-              <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+              <h2 className="mt-3 font-serif text-2xl leading-snug text-navy">{v.name}</h2>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold-deep">
                 {v.role}
               </p>
-              <h2 className="mt-2 text-xl font-bold text-navy">{v.name}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-gray">
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-navy/70">
                 {v.description}
               </p>
               {v.href && (
@@ -94,7 +97,7 @@ export default function VenturesPage() {
                   href={v.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm font-medium text-gold transition-colors hover:text-gold-light"
+                  className="mt-6 inline-block text-xs font-semibold uppercase tracking-[0.15em] text-gold-deep transition-colors hover:text-navy"
                 >
                   Visit {v.name.split(" ")[0]} &rarr;
                 </a>
@@ -103,6 +106,12 @@ export default function VenturesPage() {
           ))}
         </div>
       </div>
+    </div>
+      <section className="band-paper px-6 py-20 md:py-24">
+        <PullQuote cite="Sean C. Orr, M.D.">
+          Doctors who own their voice own their future.
+        </PullQuote>
+      </section>
     </div>
   );
 }
