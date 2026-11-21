@@ -58,13 +58,13 @@ export default function AboutPage() {
         </section>
 
         <aside className="md:pt-2">
-          <figure>
+          <figure className="max-w-[16rem] md:max-w-none">
             <Image
               src="/headshot.jpg"
               alt="Sean C. Orr, M.D."
               width={800}
               height={800}
-              sizes="(min-width: 768px) 272px, 100vw"
+              sizes="(min-width: 768px) 272px, 256px"
               className="aspect-[4/5] w-full rounded-sm object-cover shadow-[0_20px_40px_-20px_rgba(26,26,46,0.5)]"
             />
             <figcaption className="mt-3 text-xs italic text-gray">
