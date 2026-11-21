@@ -58,10 +58,10 @@ const navLinks = [
 function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-navy/10 bg-cream/95 backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
         <Link
           href="/"
-          className="font-serif text-xl font-medium tracking-tight text-navy transition-colors hover:text-gold-deep"
+          className="font-serif text-lg font-medium tracking-tight sm:text-xl text-navy transition-colors hover:text-gold-deep"
         >
           Sean C. Orr, M.D.
         </Link>
@@ -77,7 +77,7 @@ function Header() {
             </li>
           ))}
         </ul>
-        <ul className="flex gap-4 md:hidden">
+        <ul className="flex gap-3 sm:gap-4 md:hidden">
           {navLinks.slice(1).map((link) => (
             <li key={link.href}>
               <Link

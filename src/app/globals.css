@@ -10,7 +10,7 @@
   --navy-light: #2D2D4E;
   --gold-light: #D4BA6A;
   /* Darker gold for small text on light backgrounds (meets WCAG AA on cream/white). */
-  --gold-deep: #85691C;
+  --gold-deep: #7A6018;
   --gold-dim: rgba(201, 168, 76, 0.1);
   /* Warm paper tone for alternating bands. */
   --parchment: #EFEBE2;
@@ -80,8 +80,23 @@ textarea:focus-visible {
   background: var(--gold);
 }
 
-/* Fade the photo's dark studio background into the navy band. */
+/* Fade the photo's dark studio background into the navy band on the sides and
+   top; the bottom stays solid where the portrait meets the band's edge. */
 .portrait-fade {
-  -webkit-mask-image: radial-gradient(ellipse 72% 80% at 50% 42%, #000 58%, transparent 100%);
-  mask-image: radial-gradient(ellipse 72% 80% at 50% 42%, #000 58%, transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 25%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 25%);
+  mask-composite: intersect;
+}
+
+/* On phones the portrait sits above the text, so fade every edge. */
+@media (max-width: 767px) {
+  .portrait-fade {
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+  }
 }
